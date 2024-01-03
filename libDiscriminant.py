@@ -21,4 +21,21 @@ y = np.array([0]*N0 + [1]*N1)
 clf = LinearDiscriminantAnalysis()
 clf.fit(X, y)
 
-print(clf.coef_/np.linalg.norm(clf.coef_)) # normalize
+W = clf.coef_/np.linalg.norm(clf.coef_) # normalize
+#w = W[:,0]
+plt.figure(figsize=(10,8))
+
+# Biểu diễn X0
+plt.scatter(X0[:, 0], X0[:, 1], color='b', alpha=0.5, label='N1')
+
+# Biểu diễn X1
+plt.scatter(X1[:, 0], X1[:, 1], color='r', alpha=0.5, label='N2')
+x = np.linspace(-5, 5, 100)
+
+# Tính toán các giá trị tương ứng cho trục y
+y = W[0][0]/W[0][1] * x
+
+# Vẽ đường thẳng
+plt.plot(x, y, label='LDA')
+plt.legend()
+plt.show()
